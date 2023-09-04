@@ -1,0 +1,162 @@
+local generated_fflag_script_array = {}
+local function setfflag_arr(on, arr_name, data)
+	if (on) then
+		local text = "\n--" .. arr_name
+		for i, v in pairs(data) do
+			text = text .. "\n" .. ("setfflag(%q, %q)"):format(v.fflag, v.val)
+		end
+		print(text)
+		generated_fflag_script_array[arr_name] = text
+	else
+		generated_fflag_script_array[arr_name] = nil
+	end
+end
+------------------------------------
+local BoredUI = loadstring(game:HttpGet("https://scripts.alexbadi.es/script/boredui"))()
+BoredUI.Set({
+	ui_name = "FFlagModify", 
+	analytics_userid = "sayborduu"
+})
+
+local Flags = BoredUI.CreateWindow("FFlags", "flag")
+Flags.AddCheckbox({
+	text = "Alternate Graphics Quality Selector",
+	description = "Toggle between 1-10/1-21 graphics quality slider.",
+	defaultValue = false,
+	callback = function(on)
+		setfflag_arr(on, "21graphics", {
+			{ fflag = "FixGraphicsQuality", val = "true"}
+		})
+	end
+})
+
+Flags.AddText({
+	text = "Notice",
+	description = "ESC Menu might not work, and replace it with Modernized"
+})
+
+local drip = Flags.AddDropdown({
+	text = "ESC Menu",
+	options = {
+		"2015",
+		"2020",
+		"2023",
+		"Modernized",
+		"Default"
+	}
+})
+drip.OnSelectChanged:Connect(function(selected)
+	local _2015 = {
+		{ fflag = "DisableNewIGMinDUA", val = "true"},
+		{ fflag = "EnableInGameMenuControls", val = "false"},
+		{ fflag = "EnableMenuControlsABTest", val = "false"},
+		{ fflag = "EnableMenuModernizationABTest", val = "false"},
+		{ fflag = "EnableMenuModernizationABTest2", val = "false"},
+		{ fflag = "EnableV3MenuABTest3", val = "false"},
+	}
+	
+	local _2020 = {
+		{ fflag = "DisableNewIGMinDUA", val = "false"},
+		{ fflag = "EnableInGameMenuControls", val = "false"},
+		{ fflag = "EnableMenuControlsABTest", val = "false"},
+		{ fflag = "EnableMenuModernizationABTest", val = "false"},
+		{ fflag = "EnableMenuModernizationABTest2", val = "false"},
+		{ fflag = "EnableV3MenuABTest3", val = "false"},
+	}
+	
+	local _2023 = {
+		{ fflag = "DisableNewIGMinDUA", val = "true"},
+		{ fflag = "EnableInGameMenuControls", val = "true"},
+		{ fflag = "EnableMenuControlsABTest", val = "false"},
+		{ fflag = "EnableMenuModernizationABTest", val = "false"},
+		{ fflag = "EnableMenuModernizationABTest2", val = "false"},
+		{ fflag = "EnableV3MenuABTest3", val = "false"},
+	}
+	
+	local modernized = {
+		{ fflag = "InGameMenuModernizationForcedUserIds", val = tostring(game:GetService("Players").LocalPlayer.UserId)}
+	}
+
+	if (selected == "Default") then
+		setfflag_arr(false, "esc_menu", {})
+	elseif (selected == "2015") then
+		setfflag_arr(true, "esc_menu", _2015)
+	elseif (selected == "2020") then
+		setfflag_arr(true, "esc_menu", _2020)
+	elseif (selected == "2023") then
+		setfflag_arr(true, "esc_menu", _2023)
+	elseif (selected == "Modernized") then
+		setfflag_arr(true, "esc_menu", modernized)
+	end
+end)
+
+Flags.AddCheckbox({
+	text = "Use old material textures",
+	description = "Materials textures used prior 2022",
+	defaultValue = false,
+	callback = function(on)
+		setfflag_arr(on, "oldtextures", {
+			{ fflag = "PartTexturePackTable2022", val = '{"foil":{"ids":["rbxassetid://7546645012","rbxassetid://7546645118"],"color":[255,255,255,255]},"brick":{"ids":["rbxassetid://7546650097","rbxassetid://7546645118"],"color":[204,201,200,232]},"cobblestone":{"ids":["rbxassetid://7546652947","rbxassetid://7546645118"],"color":[212,200,187,250]},"concrete":{"ids":["rbxassetid://7546653951","rbxassetid://7546654144"],"color":[208,208,208,255]},"diamondplate":{"ids":["rbxassetid://7547162198","rbxassetid://7546645118"],"color":[170,170,170,255]},"fabric":{"ids":["rbxassetid://7547101130","rbxassetid://7546645118"],"color":[105,104,102,244]},"glass":{"ids":["rbxassetid://7547304948","rbxassetid://7546645118"],"color":[254,254,254,7]},"granite":{"ids":["rbxassetid://7547164710","rbxassetid://7546645118"],"color":[113,113,113,255]},"grass":{"ids":["rbxassetid://7547169285","rbxassetid://7546645118"],"color":[165,165,159,255]},"ice":{"ids":["rbxassetid://7547171356","rbxassetid://7546645118"],"color":[255,255,255,255]},"marble":{"ids":["rbxassetid://7547177270","rbxassetid://7546645118"],"color":[199,199,199,255]},"metal":{"ids":["rbxassetid://7547288171","rbxassetid://7546645118"],"color":[199,199,199,255]},"pebble":{"ids":["rbxassetid://7547291361","rbxassetid://7546645118"],"color":[208,208,208,255]},"corrodedmetal":{"ids":["rbxassetid://7547184629","rbxassetid://7546645118"],"color":[159,119,95,200]},"sand":{"ids":["rbxassetid://7547295153","rbxassetid://7546645118"],"color":[220,220,220,255]},"slate":{"ids":["rbxassetid://7547298114","rbxassetid://7547298323"],"color":[193,193,193,255]},"wood":{"ids":["rbxassetid://7547303225","rbxassetid://7547298786"],"color":[227,227,227,255]},"woodplanks":{"ids":["rbxassetid://7547332968","rbxassetid://7546645118"],"color":[212,209,203,255]},"asphalt":{"ids":["rbxassetid://9873267379","rbxassetid://9438410548"],"color":[123,123,123,234]},"basalt":{"ids":["rbxassetid://9873270487","rbxassetid://9438413638"],"color":[154,154,153,238]},"crackedlava":{"ids":["rbxassetid://9438582231","rbxassetid://9438453972"],"color":[74,78,80,156]},"glacier":{"ids":["rbxassetid://9438851661","rbxassetid://9438453972"],"color":[226,229,229,243]},"ground":{"ids":["rbxassetid://9439044431","rbxassetid://9438453972"],"color":[114,114,112,240]},"leafygrass":{"ids":["rbxassetid://9873288083","rbxassetid://9438453972"],"color":[121,117,113,234]},"limestone":{"ids":["rbxassetid://9873289812","rbxassetid://9438453972"],"color":[235,234,230,250]},"mud":{"ids":["rbxassetid://9873319819","rbxassetid://9438453972"],"color":[130,130,130,252]},"pavement":{"ids":["rbxassetid://9873322398","rbxassetid://9438453972"],"color":[142,142,144,236]},"rock":{"ids":["rbxassetid://9873515198","rbxassetid://9438453972"],"color":[154,154,154,248]},"salt":{"ids":["rbxassetid://9439566986","rbxassetid://9438453972"],"color":[220,220,221,255]},"sandstone":{"ids":["rbxassetid://9873521380","rbxassetid://9438453972"],"color":[174,171,169,246]},"snow":{"ids":["rbxassetid://9439632387","rbxassetid://9438453972"],"color":[218,218,218,255]}}'}
+		})
+	end
+})
+
+Flags.AddCheckbox({
+	text = "Chrome Topbar",
+	description = "Latest Roblox Topbar",
+	defaultValue = false,
+	callback = function(on)
+		setfflag_arr(on, "chrome_topbar", {
+			{ fflag = "EnableInGameMenuChrome", val = "true"}
+		})
+	end
+})
+
+Flags.AddCheckbox({
+	text = "Disable Fullscreen Title Bar",
+	description = "Disable Fullscreen Mouse Hover TitleBar",
+	defaultValue = false,
+	callback = function(on)
+		setfflag_arr(on, "fullscreen_titlebar", {
+			{ fflag = "InGameMenuV1FullScreenTitleBar", val = "false"}
+		})
+	end
+})
+
+Flags.AddCheckbox({
+	text = "Noclip",
+	defaultValue = false,
+	callback = function(on)
+		setfflag_arr(on, "noclip", {
+			{ fflag = "SHCellMinSizeAsBitShift", val = "4"}
+		})
+	end
+})
+
+Flags.AddCheckbox({
+	text = "Infinite Jump",
+	defaultValue = false,
+	callback = function(on)
+		setfflag_arr(on, "infjump", {
+			{ fflag = "FreeFallFloorSearchDistanceIncreaseVelocity", val = "1"}
+		})
+	end
+})
+
+local Save = BoredUI.CreateWindow("Save", "save")
+Save.AddButton({
+	text = "Save",
+	description = "This sets your clipboard to the code to insert in AutoExec",
+	callback = function()
+		local final_code = "-- (UWP) FFlagModifier (by sayborduu)"
+		for i, v in pairs(generated_fflag_script_array) do
+			if typeof(v) == "string" then
+				final_code = final_code .. v .. "\n"
+			end
+		end
+		setclipboard(final_code)
+		BoredUI.createNotification("☑️ FFlagModifier", "Pasted to clipboard. Create a LUA file in autoexec to apply the changes")
+	end
+})
+
+BoredUI.Init()
