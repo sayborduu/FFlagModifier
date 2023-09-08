@@ -159,4 +159,21 @@ Save.AddButton({
 	end
 })
 
+Save.AddButton({
+	text = "Rejoin",
+	description = "Apply changes when file created",
+	callback = function()
+		local Players = game:GetService("Players")
+		local TeleportService = game:GetService("TeleportService")
+		local PlaceId, JobId = game.PlaceId, game.JobId
+		if #Players:GetPlayers() <= 1 then
+			Players.LocalPlayer:Kick("\nRejoining...")
+			wait()
+			TeleportService:Teleport(PlaceId, Players.LocalPlayer)
+		else
+			TeleportService:TeleportToPlaceInstance(PlaceId, JobId, Players.LocalPlayer)
+		end
+	end
+})
+
 BoredUI.Init()
